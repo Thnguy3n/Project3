@@ -5,6 +5,7 @@ import com.javaweb.model.dto.AbstractDTO;
 import java.util.List;
 
 public class BuildingSearchRequest extends AbstractDTO {
+    private Long Id;
     private String name;
     private Long floorArea;
     private String district;
@@ -22,6 +23,15 @@ public class BuildingSearchRequest extends AbstractDTO {
     private Long staffId;
     private List<String> typeCode;
 
+    @Override
+    public Long getId() {
+        return Id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        Id = id;
+    }
 
     public String getName() {
         return name;

@@ -10,7 +10,7 @@
 <c:url var="buildingAPI" value="/api/building"/>
 <html>
 <head>
-    <title>Tên tòa nhà</title>
+    <title>Chỉnh sửa tòa nhà</title>
 </head>
 <body>
 <div class="main-content">
@@ -27,12 +27,9 @@
                 </li>
                 <li class="active">Dashboard</li>
             </ul><!-- /.breadcrumb -->
-
-
         </div>
 
         <div class="page-content">
-
             <div class="page-header" >
                 <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                     Sửa đổi hoặc thêm tòa nhà
@@ -123,73 +120,73 @@
                             <div class="form-group">
                                 <div class="col-xs-3">Mô tả giá</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="rentpricedescription" id="rentpricedescription">
+                                    <form:input class="form-control" path="rentPriceDescription"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Phí dịch vụ</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="number" name="servicefee" id="servicefee">
+                                    <form:input class="form-control" path="serviceFee"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Phí ô tô</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="number" name="carfee" id="carfee">
+                                    <form:input class="form-control" path="carFee"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Phí mô tô</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="number" name="motorbikefee" id="motorbikefee">
+                                    <form:input class="form-control" path="motorbikeFee"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Phí ngoài giờ</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="number" name="overtimefee" id="overtimefee">
+                                    <form:input class="form-control" path="overtimeFee"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Tiền điện</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="number" name="electricityfee" id="electricityfee">
+                                    <form:input class="form-control" path="electricityFee"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Đặt cọc</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="deposit" id="deposit">
+                                    <form:input class="form-control" path="deposit"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Thanh toán</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="payment" id="payment">
+                                    <form:input class="form-control" path="payment"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Thời hạn thuê</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="renttime" id="renttime">
+                                    <form:input class="form-control" path="rentTime"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Thời gian trang trí</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="decorationtime" id="decorationtime">
+                                    <form:input class="form-control" path="decorationTime"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">Tên quản lý</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="managername" id="managername">
+                                    <form:input class="form-control" path="managerName"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-3">SĐT quản lý</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="managerphonenumber" id="managerphonenumber">
+                                    <form:input class="form-control" path="managerPhone"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -247,12 +244,12 @@
         })
         data['typeCode']=typeCode;
         if(typeCode !=''){
-            addOrUpdateBuilding(data);
+            addOrUpdate(data);
         }
         else{
             window.location.href = "<c:url value="/admin/building-edit?typeCode=require"/>";
         }
-        function addOrUpdateBuilding(data){
+        function addOrUpdate(data){
             $.ajax({
                 type:"POST",
                 url:"${buildingAPI}",

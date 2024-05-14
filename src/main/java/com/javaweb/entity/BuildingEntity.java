@@ -7,6 +7,10 @@ import java.util.List;
 @Entity
 @Table(name = "building")
 public class BuildingEntity extends BaseEntity  {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name="name")
     private String name;
 
@@ -38,7 +42,7 @@ public class BuildingEntity extends BaseEntity  {
     private Long rentPrice;
 
     @Column(name="rentpricedescription")
-    private Long rentpriceDescription;
+    private String rentpriceDescription;
 
     @Column(name="servicefee")
     private String serviceFee;
@@ -65,15 +69,23 @@ public class BuildingEntity extends BaseEntity  {
     private String decorationTime;
     @Column(name = "type")
     private String typeCode;
-    @Column(name = "note")
-    private String note;
+    @Column(name = "managername")
+    private String managerName;
+    @Column(name = "managerphone")
+    private String managerPhone;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "buildingEntity")
+    List<AssignmentBuildingEntity> assignmentBuildingEntities=new ArrayList<>();
 
-    @Column(name = "linkofbuilding")
-    private String link;
-    @Column(name = "map")
-    private String map;
-    @Column(name = "avatar")
-    private String avatar;
+        @OneToMany(fetch = FetchType.LAZY,mappedBy = "buildingEntity")
+    List<RentAreaEntity> rentAreaEntities=new ArrayList<>();
+
+    public List<RentAreaEntity> getRentAreaEntities() {
+        return rentAreaEntities;
+    }
+
+    public void setRentAreaEntities(List<RentAreaEntity> rentAreaEntities) {
+        this.rentAreaEntities = rentAreaEntities;
+    }
 
     public List<AssignmentBuildingEntity> getAssignmentBuildingEntities() {
         return assignmentBuildingEntities;
@@ -83,10 +95,28 @@ public class BuildingEntity extends BaseEntity  {
         this.assignmentBuildingEntities = assignmentBuildingEntities;
     }
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "buildingEntity")
-    List<AssignmentBuildingEntity> assignmentBuildingEntities=new ArrayList<>();
+
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public String getBrokerageFee() {
+        return brokerageFee;
+    }
+
+    public void setBrokerageFee(String brokerageFee) {
+        this.brokerageFee = brokerageFee;
     }
 
     public void setName(String name) {
@@ -165,11 +195,11 @@ public class BuildingEntity extends BaseEntity  {
         this.rentPrice = rentPrice;
     }
 
-    public Long getRentpriceDescription() {
+    public String getRentpriceDescription() {
         return rentpriceDescription;
     }
 
-    public void setRentpriceDescription(Long rentpriceDescription) {
+    public void setRentpriceDescription(String rentpriceDescription) {
         this.rentpriceDescription = rentpriceDescription;
     }
 
@@ -181,13 +211,7 @@ public class BuildingEntity extends BaseEntity  {
         this.serviceFee = serviceFee;
     }
 
-    public String getBrokerageFee() {
-        return brokerageFee;
-    }
 
-    public void setBrokerageFee(String brokerageFee) {
-        this.brokerageFee = brokerageFee;
-    }
 
     public String getCarFee() {
         return carFee;
@@ -269,38 +293,6 @@ public class BuildingEntity extends BaseEntity  {
         this.typeCode = typeCode;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public String getMap() {
-        return map;
-    }
-
-    public void setMap(String map) {
-        this.map = map;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
     public String getManagerName() {
         return managerName;
     }
@@ -316,20 +308,4 @@ public class BuildingEntity extends BaseEntity  {
     public void setManagerPhone(String managerPhone) {
         this.managerPhone = managerPhone;
     }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    @Column(name = "managername")
-    private String managerName;
-    @Column(name = "managerphone")
-    private String managerPhone;
-    @Column(name = "image")
-    private String image;
-
 }

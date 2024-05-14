@@ -5,7 +5,7 @@ import com.javaweb.model.dto.AbstractDTO;
 
 public class BuildingSearchResponse extends AbstractDTO {
 	private Long id;
-	private String createdDate;
+//	private String createdDate;
 	private String name;
 	private String address;
 	private Long numberOfBasement;
@@ -16,7 +16,7 @@ public class BuildingSearchResponse extends AbstractDTO {
     private String emptyArea;
     private Long rentPrice;
     private String serviceFee;
-    private Double brokerageFee;
+    private String brokerageFee;
 
 	public Long getId() {
 		return id;
@@ -26,9 +26,9 @@ public class BuildingSearchResponse extends AbstractDTO {
 		this.id = id;
 	}
 
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
-	}
+//	public void setCreatedDate(String createdDate) {
+//		this.createdDate = createdDate;
+//	}
 	public String getManagerName() {
 		return managerName;
 	}
@@ -71,10 +71,10 @@ public class BuildingSearchResponse extends AbstractDTO {
 	public void setServiceFee(String serviceFee) {
 		this.serviceFee = serviceFee;
 	}
-	public Double getBrokerageFee() {
+	public String getBrokerageFee() {
 		return brokerageFee;
 	}
-	public void setBrokerageFee(Double brokerageFee) {
+	public void setBrokerageFee(String brokerageFee) {
 		this.brokerageFee = brokerageFee;
 	}
 	public String getName() {
