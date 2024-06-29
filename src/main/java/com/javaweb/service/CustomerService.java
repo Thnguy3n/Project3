@@ -1,5 +1,6 @@
 package com.javaweb.service;
 
+import com.javaweb.model.dto.AccountDTO;
 import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
@@ -17,5 +18,6 @@ public interface CustomerService {
     void deleteCustomer(List<Long> Id);
     ResponseDTO listStaffs (Long customerId);
     void assignmentCustomer(AssignmentCustomerDTO assignmentCustomerDTO);
+    void addAccount(CustomerDTO customerDTO);
 
 }

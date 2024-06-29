@@ -1,7 +1,9 @@
 package com.javaweb.service.impl;
 
+import com.javaweb.constant.SystemConstant;
 import com.javaweb.converter.CustomerConverter;
 import com.javaweb.entity.*;
+import com.javaweb.model.dto.AccountDTO;
 import com.javaweb.model.dto.AssignmentCustomerDTO;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.request.CustomerSearchRequest;
@@ -9,12 +11,14 @@ import com.javaweb.model.response.CustomerSearchResponse;
 import com.javaweb.model.response.ResponseDTO;
 import com.javaweb.model.response.StaffResponseDTO;
 import com.javaweb.repository.CustomerRepository;
+import com.javaweb.repository.RoleRepository;
 import com.javaweb.repository.TransactionRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.CustomerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,7 +35,10 @@ public class CustomerServiceImpl implements CustomerService {
     private ModelMapper modelMapper;
     @Autowired
     private TransactionRepository transactionRepository;
-
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public List<CustomerSearchResponse> findAll(CustomerSearchRequest customerSearchRequest) {
         List<CustomerEntity> customer =customerRepository.findAll(customerSearchRequest);
@@ -66,8 +73,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void addOrUpdateCustomer(CustomerDTO customerDTO) {
-        CustomerEntity customerEntity= new CustomerEntity();
-        customerEntity=modelMapper.map(customerDTO,CustomerEntity.class);
+        CustomerEntity customerEntity=modelMapper.map(customerDTO,CustomerEntity.class);
+        if(customerDTO.getStatus() == null || customerDTO.getStatus().isEmpty()){
+            customerEntity.setStatus("CHUA_XU_LY");
+        }
         customerRepository.save(customerEntity);
     }
 
@@ -122,5 +131,13 @@ public class CustomerServiceImpl implements CustomerService {
         }
         customerRepository.save(customerEntity);
     }
+
+    @Override
+    public void addAccount(CustomerDTO customerDTO) {
+        CustomerEntity customerEntity= modelMapper.map(customerDTO,CustomerEntity.class);
+        customerEntity.setPassword(passwordEncoder.encode(SystemConstant.PASSWORD_DEFAULT));
+        customerRepository.save(customerEntity);
+    }
+
 
 }

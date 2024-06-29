@@ -3,6 +3,8 @@ package com.javaweb.model.response;
 
 import com.javaweb.model.dto.AbstractDTO;
 
+import java.util.List;
+
 public class BuildingSearchResponse extends AbstractDTO {
 	private Long id;
 //	private String createdDate;
@@ -17,6 +19,15 @@ public class BuildingSearchResponse extends AbstractDTO {
     private Long rentPrice;
     private String serviceFee;
     private String brokerageFee;
+	private List<String> typeCode;
+
+	public List<String> getTypeCode() {
+		return typeCode;
+	}
+
+	public void setTypeCode(List<String> typeCode) {
+		this.typeCode = typeCode;
+	}
 
 	public Long getId() {
 		return id;

@@ -1,6 +1,7 @@
 package com.javaweb.controller.admin;
 
 import com.javaweb.constant.SystemConstant;
+import com.javaweb.enums.StatusType;
 import com.javaweb.enums.TransactionType;
 import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.dto.TransactionDTO;
@@ -77,6 +78,7 @@ public class CustomerController {
         CustomerDTO customerDTO= customerService.findCustomerEntityById(Id);
         mav.addObject("customerEdit",customerDTO);
         mav.addObject("transactionType", TransactionType.transactionType());
+        mav.addObject("statusType", StatusType.type());
         mav.addObject("ListType1",transactionService.addTransactions(Id,"CSKH"));
         mav.addObject("ListType2",transactionService.addTransactions(Id,"DDX"));
         return mav;

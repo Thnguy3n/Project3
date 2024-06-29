@@ -1,3 +1,4 @@
+<%@ taglib prefix="th" uri="http://www.springframework.org/tags/form"%>
 <%--
   Created by IntelliJ IDEA.
   User: HP Victus
@@ -39,7 +40,7 @@
                     </small>
                 </h1>
             </div><!-- /.page-header -->
-            <form:form modelAttribute="buildingEdit" id="listForm" method="GET" >
+            <form:form modelAttribute="buildingEdit" id="listForm" method="GET" var="item">
                 <div class="row" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                     <div class="col-xs-12">
                         <form action="" class="form-horizontal" role="form" >
@@ -204,9 +205,25 @@
                             <div class="form-group">
                                 <div class="col-xs-3">Ghi chú</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="" id="">
+                                    <form:textarea rows="12" class="form-control" path="note"/>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 no-padding-right">Hình đại diện</label>
+                                <input class="col-sm-3 no-padding-right" type="file" id="uploadImage"/>
+                                <div class="col-sm-9">
+                                    <c:if test="${not empty buildingEdit.image}">
+                                        <c:set var="imagePath" value="/repository${buildingEdit.image}"/>
+                                        <img src="${imagePath}" id="viewImage" width="300px" height="300px" style="margin-top: 50px">
+                                    </c:if>
+                                    <c:if test="${empty buildingEdit.image}">
+                                        <img src="/admin/image/defaul.jpg" id="viewImage" width="300px" height="300px">
+                                    </c:if>
+                                </div>
+                            </div>
+
+
+
                             <div class="form-group">
                                 <label class="col-xs-3"></label>
                                 <div class="col-xs-9">
@@ -230,47 +247,87 @@
         </div><!-- /.page-content -->
     </div>
 </div><!-- /.main-content -->
-
 <script>
+    var imageBase64 = '';
+    var imageName = '';
     $('#btnAddOrUpdateBuilding').click(function(){
         var data = {};
-        var typeCode= [];
+        var typeCode =[];
         var formData = $('#listForm').serializeArray();
-        $.each(formData,function(i,v){
-            if(v.name!='typeCode')
-                data[""+v.name+""]=v.value;
-            else
+        $.each(formData, function(i, v){
+            if(v.name != 'typeCode'){
+                data[""+ v.name +""] = v.value;
+            }
+            else{
                 typeCode.push(v.value);
-        })
-        data['typeCode']=typeCode;
-        if(typeCode !=''){
-            addOrUpdate(data);
+            }
+        });
+        $.each(formData, function (i, e) {
+            if ('' !== e.value && null != e.value) {
+                data['' + e.name + ''] = e.value;
+            }
+
+            if ('' !== imageBase64) {
+                data['imageBase64'] = imageBase64;
+                data['imageName'] = imageName;
+            }
+        });
+        var buildingId = data['id'];
+        data['typeCode'] = typeCode;
+
+        if(typeCode != ''){
+            addOrupdate(data);
+            window.location.href = "<c:url value="/admin/building-list?message=success"/>";
         }
         else{
             window.location.href = "<c:url value="/admin/building-edit?typeCode=require"/>";
         }
-        function addOrUpdate(data){
-            $.ajax({
-                type:"POST",
-                url:"${buildingAPI}",
-                data:JSON.stringify(data),
-                contentType:"application/json",
-                dataType:"JSON",
-                success:function(respond){
-                    console.log("success");
-                },
-                error:function(respond){
-                    console.log("fail");
-                    console.log(respond);
-                }
-            });
-        };
+        $('#loading_image').show();
+    });
+    function addOrupdate(data){
+        $.ajax({
+            type: "POST",
+            url: "${buildingAPI}",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "JSON",
+            success: function (response) {
+                console.info("success!");
 
-        $('#btnCancel').click(function () {
-            window.location.href = "/admin/building-list";
+            },
+            error : function (respond) {
+                console.info("Fail!")
+                console.log(respond);
+            }
         });
-    })
+    }
+
+    $('#bntCancel').click(function (){
+        window.location.href="/admin/building-list";
+    });
+
+    $('#uploadImage').change(function (event) {
+        var reader = new FileReader();
+        var file = $(this)[0].files[0];
+        reader.onload = function(e){
+            imageBase64 = e.target.result;
+            imageName = file.name; // ten hinh khong dau, khoang cach. vd: a-b-c
+        };
+        reader.readAsDataURL(file);
+        openImage(this, "viewImage");
+    });
+
+    function openImage(input, imageView) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#' +imageView).attr('src', reader.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
+
 
 </body>
 </html>

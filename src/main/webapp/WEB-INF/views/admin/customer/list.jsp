@@ -73,17 +73,20 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
-                                            <div class="col-sm-4">
-                                                <label class="name">Chọn nhân viên</label>
-                                                <form:select class="form-control" path="staffId">
-                                                    <form:option value="">---Chọn nhân viên---</form:option>
-                                                    <form:options items="${listStaffs}"/>
-                                                </form:select>
+                                    <security:authorize access="hasRole('MANAGER')">
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+                                                <div class="col-sm-4">
+                                                    <label class="name">Chọn nhân viên</label>
+                                                    <form:select class="form-control" path="staffId">
+                                                        <form:option value="">---Chọn nhân viên---</form:option>
+                                                        <form:options items="${listStaffs}"/>
+                                                    </form:select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </security:authorize>
+
                                     <div class="form-group">
                                         <div class="col-xs-12">
                                             <div class="col-sm-6">

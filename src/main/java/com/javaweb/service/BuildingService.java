@@ -18,7 +18,9 @@ public interface BuildingService {
     List<BuildingSearchResponse> findAll(BuildingSearchRequest buildingSearchRequest);
     List<BuildingSearchResponse> getAllBuilding(Pageable pageable);
     void addOrUpdateBuilding (BuildingDTO buildingDTO) ;
+    List<BuildingDTO> getBuilding(BuildingDTO buildingDTO);
     BuildingDTO findBuildingEntityById(Long Id);
     void deleteBuilding (List<Long> Id);
     void assignmentBuilding(AssignmentBuildingDTO assignmentBuildingDTO);
+
 }

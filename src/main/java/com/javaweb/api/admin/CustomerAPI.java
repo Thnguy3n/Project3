@@ -19,10 +19,15 @@ public class CustomerAPI {
     @Autowired
     private TransactionService transactionService;
     @PostMapping
-    public CustomerDTO addOrUpdateCustomer(@RequestBody CustomerDTO customerDTO){
-        customerService.addOrUpdateCustomer(customerDTO);
+    public CustomerDTO addAccount(@RequestBody CustomerDTO customerDTO){
+        customerService.addAccount(customerDTO);
         return customerDTO;
     }
+//    @PostMapping
+//    public CustomerDTO addOrUpdateCustomer(@RequestBody CustomerDTO customerDTO){
+//        customerService.addOrUpdateCustomer(customerDTO);
+//        return customerDTO;
+//    }
 
     @DeleteMapping("/{ids}")
     public void DeleteCustomer(@PathVariable List<Long> ids){

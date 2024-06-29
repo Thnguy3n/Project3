@@ -73,6 +73,27 @@ public class BuildingEntity extends BaseEntity  {
     private String managerName;
     @Column(name = "managerphone")
     private String managerPhone;
+    @Column(name="avatar")
+    private String image;
+    @Column(name="note")
+    private String note;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "buildingEntity")
     List<AssignmentBuildingEntity> assignmentBuildingEntities=new ArrayList<>();
 

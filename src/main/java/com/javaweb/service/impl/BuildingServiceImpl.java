@@ -17,11 +17,15 @@ import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.UserRepository;
 import com.javaweb.service.BuildingService;
+import com.javaweb.utils.StringUtils;
+import com.javaweb.utils.UploadFileUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,8 +44,11 @@ public class BuildingServiceImpl implements BuildingService {
     private BuildingConverter buildingConverter;
     @Autowired
     private ModelMapper modelMapper;
-
-
+    private final UploadFileUtils uploadFileUtils;
+    @Autowired
+    public BuildingServiceImpl(UploadFileUtils uploadFileUtils) {
+        this.uploadFileUtils = uploadFileUtils;
+    }
     @Override
     public ResponseDTO listStaffs(Long buildingId ) {
         BuildingEntity building= buildingRepository.findById(buildingId).get();
@@ -102,8 +109,9 @@ public class BuildingServiceImpl implements BuildingService {
     public void addOrUpdateBuilding(BuildingDTO buildingDTO) {
          BuildingEntity buildingEntity= new BuildingEntity();
         buildingEntity = modelMapper.map(buildingDTO,BuildingEntity.class);
+        saveThumbnail(buildingDTO,buildingEntity);
         buildingRepository.save(buildingEntity);
-        String [] a = buildingDTO.getRentArea().split(",");
+         String [] a = buildingDTO.getRentArea().split(",");
         List<RentAreaEntity> rentAreaEntityList= new ArrayList<>();
         for(String it:a){
             RentAreaEntity rentArea= new RentAreaEntity();
@@ -121,6 +129,18 @@ public class BuildingServiceImpl implements BuildingService {
         rentAreaRepository.deleteAll(rentAreaEntityOldList);
         rentAreaRepository.saveAll(rentAreaEntityList);
     }
+
+    @Override
+    public List<BuildingDTO> getBuilding(BuildingDTO buildingDTO) {
+        List<BuildingEntity> buildingEntityList= buildingRepository.findAll();
+        List<BuildingDTO> building = new ArrayList<>();
+        for(BuildingEntity item : buildingEntityList){
+            BuildingDTO b = buildingConverter.toBuidlingDTO(item);
+            building.add(b);
+        }
+        return building;
+    }
+
     @Override
     public BuildingDTO findBuildingEntityById(Long Id) {
         BuildingEntity buildingEntity =  buildingRepository.findById(Id).get();
@@ -164,5 +184,24 @@ public class BuildingServiceImpl implements BuildingService {
         }
 
     }
+
+
+    public void saveThumbnail(BuildingDTO buildingDTO, BuildingEntity buildingEntity) {
+        String path = "/building/" + buildingDTO.getImageName();
+        if (null != buildingDTO.getImageBase64()) {
+            if (null != buildingEntity.getImage()) {
+                if (!path.equals(buildingEntity.getImage())) {
+                    File file = new File("C://home/office" + buildingEntity.getImage());
+                    file.delete();
+                }
+            }
+            byte[] bytes = Base64.decodeBase64(buildingDTO.getImageBase64().getBytes());
+            uploadFileUtils.writeOrUpdate(path,bytes);
+            buildingEntity.setImage(path);
+        }
+
+    }
+
+
 
 }
