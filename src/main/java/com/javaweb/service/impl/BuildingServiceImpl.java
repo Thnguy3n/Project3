@@ -106,11 +106,11 @@ public class BuildingServiceImpl implements BuildingService {
 
 
     @Override
-    public void addOrUpdateBuilding(BuildingDTO buildingDTO) {
+        public void addOrUpdateBuilding(BuildingDTO buildingDTO) {
          BuildingEntity buildingEntity= new BuildingEntity();
         buildingEntity = modelMapper.map(buildingDTO,BuildingEntity.class);
         saveThumbnail(buildingDTO,buildingEntity);
-        buildingRepository.save(buildingEntity);
+            buildingRepository.save(buildingEntity);
          String [] a = buildingDTO.getRentArea().split(",");
         List<RentAreaEntity> rentAreaEntityList= new ArrayList<>();
         for(String it:a){

@@ -94,6 +94,16 @@ public class UserService implements IUserService {
         return listStaffs;
     }
 
+    @Override
+    public UserDTO addCustomerAccount(UserDTO userDTO) {
+        RoleEntity role = roleRepository.findOneByCode("CUSTOMER");
+        UserEntity userEntity = userConverter.convertToEntity(userDTO);
+        userEntity.setRoles(Stream.of(role).collect(Collectors.toList()));
+        userEntity.setStatus(1);
+        userEntity.setPassword(passwordEncoder.encode(SystemConstant.PASSWORD_DEFAULT));
+        return userConverter.convertToDto(userRepository.save(userEntity));
+    }
+
 
     @Override
     public int getTotalItems(String searchValue) {

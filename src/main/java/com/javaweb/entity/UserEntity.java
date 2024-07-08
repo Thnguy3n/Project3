@@ -29,6 +29,9 @@ public class UserEntity extends BaseEntity {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Column(name = "phone", unique = true)
+    private String phone;
+
     @ManyToMany(mappedBy = "userEntities",fetch = FetchType.LAZY)
     List<CustomerEntity> customerEntityList=new ArrayList<>();
 
@@ -120,5 +123,13 @@ public class UserEntity extends BaseEntity {
 
     public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

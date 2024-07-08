@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="customerAPI" value="/api/customer"/>
+<c:url var="userAPI" value="api/user"/>
 <html>
 <head>
     <title>Đăng ký</title>
@@ -67,7 +67,7 @@
 
 <%--</section>--%>
   <div class="main-w3layouts wrapper">
-		<h1>Creative SignUp Form</h1>
+		<h1>SignUp</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<form action="#" method="post">
@@ -84,7 +84,7 @@
 						</label>
 						<div class="clear"> </div>
 					</div>
-					<input type="submit" id="btnRegister" value="SIGNUP">
+					<input type="submit" id="btnRegister" value="SIGNUP" >
 				</form>
 				<p>Don't have an Account? <a href="<c:url value="/login"/>"> Login Now!</a></p>
 			</div>
@@ -107,32 +107,38 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="application/javascript">
-        $('#btnRegister').click(function(){
-            var data = {};
-            data['fullname']=$('#fullname').val();
-            data['email']=$('#email').val();
-            data['phone']=$('#phone').val();
-            data['username']=$('#username').val();
-            data['password']=$('#password').val();
-            addOrUpdate(data);
-            function addOrUpdate(data){
-                $.ajax({
-                    type:"POST",
-                    url:"${customerAPI  }",
-                    data:JSON.stringify(data),
-                    contentType:"application/json",
-                    dataType:"JSON",
-                    success:function(respond){
-                        console.log("success");
-                    },
-                    error:function(respond){
-                        console.log("fail");
-                        console.log(respond);
-                    }
-                });
-            };
-        })
-    </script>
+    $('#btnRegister').click(function(event){
+        event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+
+        var data = {};
+        data['fullName'] = $('#fullname').val();
+        data['email'] = $('#email').val();
+        data['phone'] = $('#phone').val();
+        data['userName'] = $('#username').val();
+        data['password'] = $('#password').val();
+
+        addOrUpdate(data);
+
+        function addOrUpdate(data){
+            $.ajax({
+                type: "POST",
+                url: "${userAPI}/Register",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                dataType: "JSON",
+                success: function(respond){
+                    console.log("success");
+                    // Điều hướng đến trang login sau khi đăng ký thành công
+                    window.location.href = '<c:url value="/login" />';
+                },
+                error: function(respond){
+                    console.log("fail");
+                    console.log(respond);
+                }
+            });
+        }
+    });
+	</script>
 	<style>
           /*--
 Author: Colorlib

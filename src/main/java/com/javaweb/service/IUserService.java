@@ -1,6 +1,7 @@
 package com.javaweb.service;
 
 import com.javaweb.model.dto.AssignmentBuildingDTO;
+import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.exception.MyException;
@@ -26,4 +27,5 @@ public interface IUserService {
     List<UserDTO> getAllUsers(Pageable pageable);
     int countTotalItems();
     Map<Long,String> getStaffs();
+    UserDTO addCustomerAccount(UserDTO userDTO) ;
 }

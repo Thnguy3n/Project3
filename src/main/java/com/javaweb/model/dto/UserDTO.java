@@ -10,10 +10,28 @@ public class UserDTO extends AbstractDTO {
     private String fullName;
     private String password;
     private Integer status;
+    private String phone;
+    private String email;
     private List<RoleDTO> roles = new ArrayList<>();
     private String roleName;
     private String roleCode;
     private Map<String,String> roleDTOs = new HashMap<>();
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getUserName() {
         return userName;

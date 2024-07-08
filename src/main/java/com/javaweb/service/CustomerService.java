@@ -18,6 +18,5 @@ public interface CustomerService {
     void deleteCustomer(List<Long> Id);
     ResponseDTO listStaffs (Long customerId);
     void assignmentCustomer(AssignmentCustomerDTO assignmentCustomerDTO);
-    void addAccount(CustomerDTO customerDTO);
-
+//    void addAccount(CustomerDTO customerDTO);
 }

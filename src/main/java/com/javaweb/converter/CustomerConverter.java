@@ -2,6 +2,7 @@ package com.javaweb.converter;
 
 import com.javaweb.entity.CustomerEntity;
 import com.javaweb.enums.StatusType;
+import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.model.response.CustomerSearchResponse;
 import com.javaweb.utils.DistrictCode;
@@ -19,6 +20,10 @@ public class CustomerConverter {
         CustomerSearchResponse customer = modelMapper.map(item,CustomerSearchResponse.class);
         Map<String,String> status = StatusType.type();
         customer.setStatus(status.get(item.getStatus()));
+        return customer;
+    }
+    public CustomerDTO converToDTO(CustomerEntity item){
+        CustomerDTO customer = modelMapper.map(item,CustomerDTO.class);
         return customer;
     }
 }

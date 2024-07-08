@@ -1,8 +1,10 @@
 package com.javaweb.service.impl;
 
+import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.dto.MyUserDetail;
 import com.javaweb.model.dto.RoleDTO;
 import com.javaweb.model.dto.UserDTO;
+import com.javaweb.service.CustomerService;
 import com.javaweb.service.IUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Autowired
     private IUserService userService;
-
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         UserDTO userDTO = userService.findOneByUserNameAndStatus(name, 1);
@@ -36,4 +37,5 @@ public class CustomUserDetailService implements UserDetailsService {
         BeanUtils.copyProperties(userDTO, myUserDetail);
         return myUserDetail;
     }
+
 }

@@ -25,12 +25,12 @@ public class CustomerEntity extends BaseEntity{
     private String status;
     @Column(name ="is_active")
     private Integer isActive;
-    @Column(name="role")
-    private String role;
-    @Column(name="username")
-    private String userName;
-    @Column(name="password")
-    private String password;
+//    @Column(name="role")
+//    private String role;
+//    @Column(name="username")
+//    private String userName;
+//    @Column(name="password")
+//    private String password;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "assignmentcustomer",
             joinColumns = @JoinColumn(name = "customerid", nullable = false),
@@ -64,29 +64,29 @@ public class CustomerEntity extends BaseEntity{
         this.isActive = isActive;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
+//
+//    public String getUserName() {
+//        return userName;
+//    }
+//
+//    public void setUserName(String userName) {
+//        this.userName = userName;
+//    }
+//
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     @Override
     public Long getId() {

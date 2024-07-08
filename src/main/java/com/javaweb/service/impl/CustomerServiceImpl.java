@@ -132,12 +132,18 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(customerEntity);
     }
 
-    @Override
-    public void addAccount(CustomerDTO customerDTO) {
-        CustomerEntity customerEntity= modelMapper.map(customerDTO,CustomerEntity.class);
-        customerEntity.setPassword(passwordEncoder.encode(SystemConstant.PASSWORD_DEFAULT));
-        customerRepository.save(customerEntity);
-    }
+//    @Override
+//    public void addAccount(CustomerDTO customerDTO) {
+//        CustomerEntity customerEntity= modelMapper.map(customerDTO,CustomerEntity.class);
+//        customerEntity.setPassword(passwordEncoder.encode(SystemConstant.PASSWORD_DEFAULT));
+//        if(customerDTO.getStatus() == null || customerDTO.getStatus().isEmpty()){
+//            customerEntity.setStatus("CHUA_XU_LY");
+//        }
+//        customerEntity.setRole("CUSTOMER");
+//        customerRepository.save(customerEntity);
+//    }
+
+
 
 
 }
