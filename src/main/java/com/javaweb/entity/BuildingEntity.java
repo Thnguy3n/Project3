@@ -77,6 +77,16 @@ public class BuildingEntity extends BaseEntity  {
     private String image;
     @Column(name="note")
     private String note;
+    @Column(name="map")
+    private String map;
+
+    public String getMap() {
+        return map;
+    }
+
+    public void setMap(String map) {
+        this.map = map;
+    }
 
     public String getNote() {
         return note;

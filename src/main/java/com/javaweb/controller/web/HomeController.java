@@ -33,7 +33,10 @@ public class HomeController {
 	@RequestMapping(value = "/trang-chu", method = RequestMethod.GET)
 	public ModelAndView homePage(BuildingSearchRequest buildingSearchRequest, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("web/home");
+        BuildingDTO buildingDTO = new BuildingDTO();
         mav.addObject("modelSearch", buildingSearchRequest);
+        mav.addObject("buildingNoiBat", buildingService.getBuildingLevel1(buildingDTO));
+        mav.addObject("buildingMoiNhat", buildingService.getBuildingLevel2(buildingDTO));
         mav.addObject("districts", DistrictCode.type());
 		return mav;
 	}

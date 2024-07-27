@@ -12,7 +12,7 @@
 
 <html>
 <head>
-    <title>Danh sách tòa nhà</title>
+    <title>Danh sách Bất động sản</title>
 </head>
 <body>
 <div class="main-content" >
@@ -35,7 +35,7 @@
             <div class="page-content">
                 <div class="page-header">
                     <h1>
-                        Danh sách tòa nhà
+                        Danh sách bất động sản
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
                             overview &amp; stats

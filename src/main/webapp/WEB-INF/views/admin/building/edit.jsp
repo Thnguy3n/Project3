@@ -33,7 +33,7 @@
         <div class="page-content">
             <div class="page-header" >
                 <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                    Sửa đổi hoặc thêm tòa nhà
+                    Sửa đổi hoặc thêm Bất động sản
                     <small>
                         <i class="ace-icon fa fa-angle-double-right"></i>
                         overview &amp; stats
@@ -191,9 +191,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-xs-3">Phí mô giới</div>
+                                <div class="col-xs-3">Map</div>
                                 <div class="col-xs-9">
-                                    <input class="form-control" type="text" name="" id="">
+                                    <form:input class="form-control" path="map"/>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -13,7 +13,7 @@ public class BuildingDTO extends AbstractDTO{
     private String street;
     private Long numberOfBasement;
     private String direction;
-    private Long level;
+    private String level;
     private String rentArea;
     private String address;
     private String rentPriceDescription;
@@ -32,6 +32,15 @@ public class BuildingDTO extends AbstractDTO{
     private String imageBase64;
     private String imageName ;
     private String note;
+    private String map;
+
+    public String getMap() {
+        return map;
+    }
+
+    public void setMap(String map) {
+        this.map = map;
+    }
 
     public String getNote() {
         return note;
@@ -251,11 +260,11 @@ public class BuildingDTO extends AbstractDTO{
         this.direction = direction;
     }
 
-    public Long getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(Long level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

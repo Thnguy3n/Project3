@@ -22,5 +22,7 @@ public interface BuildingService {
     BuildingDTO findBuildingEntityById(Long Id);
     void deleteBuilding (List<Long> Id);
     void assignmentBuilding(AssignmentBuildingDTO assignmentBuildingDTO);
-
+    List<BuildingDTO> getBuildingLevel1(BuildingDTO buildingDTO);
+    List<BuildingDTO> getBuildingLevel2(BuildingDTO buildingDTO);
+    List<BuildingDTO> getBuildingLevel3(BuildingDTO buildingDTO);
 }

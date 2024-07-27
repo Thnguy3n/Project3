@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -183,6 +184,33 @@ public class BuildingServiceImpl implements BuildingService {
             assignmentBuildingRepository.save(assignmentBuildingEntity);
         }
 
+    }
+
+    @Override
+    public List<BuildingDTO> getBuildingLevel1(BuildingDTO buildingDTO) {
+        List<BuildingEntity> buildingEntityList= buildingRepository.findBuildingEntitiesByLevel("noi-bat");
+        List<BuildingDTO> building = new ArrayList<>();
+        for(BuildingEntity item : buildingEntityList){
+            BuildingDTO b = buildingConverter.toBuidlingDTO(item);
+            building.add(b);
+        }
+        return building;
+    }
+
+    @Override
+    public List<BuildingDTO> getBuildingLevel2(BuildingDTO buildingDTO) {
+        List<BuildingEntity> buildingEntityList= buildingRepository.findBuildingEntitiesByLevel("moi-nhat");
+        List<BuildingDTO> building = new ArrayList<>();
+        for(BuildingEntity item : buildingEntityList){
+            BuildingDTO b = buildingConverter.toBuidlingDTO(item);
+            building.add(b);
+        }
+        return building;
+    }
+
+    @Override
+    public List<BuildingDTO> getBuildingLevel3(BuildingDTO buildingDTO) {
+        return Collections.emptyList();
     }
 
 

@@ -13,59 +13,6 @@
     <title>Đăng ký</title>
 </head>
 <body style="background: #FFFFFF">
-<%--<section class="vh-100 gradient-custom form-register">--%>
-<%--    <div class="container">--%>
-<%--        <div class="row d-flex justify-content-center align-items-center h-100">--%>
-<%--            <div class="col-12 col-md-8 col-lg-6 col-xl-5">--%>
-<%--                <div class="card text-white" style="border-radius: 1rem; background-color: #35bf76;">--%>
-<%--                    <div class="card-body p-2 px-5 text-center">--%>
-<%--                        <div class="md-5 md-4 mt-4 pb-2">--%>
-<%--                            <h2 class="fw-bold mb-2 text-uppercase">Đăng ký</h2>--%>
-<%--                            <p class="text-white-50 mb-2">Điền đầy đủ thông tin bên dưới</p>--%>
-
-
-
-<%--                            <div class="form-outline form-white mb-2">--%>
-<%--                                <label class="form-label" >Tên đăng nhập</label>--%>
-<%--                                <input type="email" id="username" class="form-control form-control-lg" />--%>
-<%--                            </div>--%>
-
-<%--                            <div class="form-outline form-white mb-2">--%>
-<%--                                <label class="form-label" >Mật khẩu</label>--%>
-<%--                                <input type="email" id="password" class="form-control form-control-lg" />--%>
-<%--                            </div>--%>
-
-<%--                            <div class="form-outline form-white mb-2">--%>
-<%--                                <label class="form-label" >Nhập lại mật khẩu</label>--%>
-<%--                                <input type="email" id="typeEmailX" class="form-control form-control-lg" />--%>
-<%--                            </div>--%>
-
-
-<%--                            <button class="btn-lg px-5 btn-primary" id="btnRegister" type="submit">Đăng ký </button>--%>
-
-<%--                            <div class="d-flex justify-content-center text-center mt-2 pt-1">--%>
-<%--                                <a href="#!" class="login-extension text-white"><i--%>
-<%--                                        class="fab fa-facebook-f fa-lg"></i></a>--%>
-<%--                                <a href="#!" class="login-extension text-white"><i--%>
-<%--                                        class="fab fa-twitter fa-lg mx-4 px-2"></i></a>--%>
-<%--                                <a href="#!" class="login-extension text-white"><i--%>
-<%--                                        class="fab fa-google fa-lg"></i></a>--%>
-<%--                            </div>--%>
-
-<%--                            <p class="text-center text-muted mt-2 mb-0">Bạn đã có tài khoản? <a href="<c:url value='/login'/>   "--%>
-<%--                                                                                                    class="fw-bold text-body"><u style="color: white ;">Đăng nhập ở đây</u></a></p>--%>
-
-<%--                            </form>--%>
-
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--    --%>
-
-<%--</section>--%>
   <div class="main-w3layouts wrapper">
 		<h1>SignUp</h1>
 		<div class="main-agileinfo">
@@ -108,7 +55,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="application/javascript">
     $('#btnRegister').click(function(event){
-        event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+        event.preventDefault();
 
         var data = {};
         data['fullName'] = $('#fullname').val();
@@ -128,7 +75,6 @@
                 dataType: "JSON",
                 success: function(respond){
                     console.log("success");
-                    // Điều hướng đến trang login sau khi đăng ký thành công
                     window.location.href = '<c:url value="/login" />';
                 },
                 error: function(respond){

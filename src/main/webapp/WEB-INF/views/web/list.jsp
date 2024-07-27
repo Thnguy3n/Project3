@@ -80,7 +80,6 @@
                                 <div class="product1-conntent-header">
                                     <a href='<c:url value="chi-tiet-${item.id}"/> '>${item.name}</a>
                                 </div>
-                                <span class="product1-conntent-title">${item.note}</span>
                                 <ul class="product1-conntent-list">
                                     <li class="product1-conntent-item">
                                         <i class="fa-solid fa-location-dot"></i>
@@ -88,12 +87,12 @@
                                     </li>
                                     <li class="product1-conntent-item">
                                         <i class="fa-solid fa-building"></i>
-                                        <span >Loại BĐS: ${item.typeCode}</span>
+                                        <span >Loại BĐS: Nguyên căn, Tầng trệt</span>
 
                                     </li>
                                     <li class="product1-conntent-item">
                                         <i class="fa-solid fa-earth-asia"></i>
-                                        <span>Diện tích: ${item.floorArea}</span>
+                                        <span>Diện tích: ${item.floorArea} m2</span>
                                     </li>
                                 </ul>
                             </div>
