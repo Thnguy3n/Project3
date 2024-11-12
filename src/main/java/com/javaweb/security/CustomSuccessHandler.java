@@ -55,14 +55,14 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     private boolean isAdmin(List<String> roles) {
-        if (roles.contains(SystemConstant.ADMIN_ROLE) || roles.contains(SystemConstant.MANAGER_ROLE)) {
+        if (roles.contains(SystemConstant.ADMIN_ROLE) || roles.contains(SystemConstant.MANAGER_ROLE) || roles.contains(SystemConstant.STAFF_ROLE)) {
             return true;
         }
         return false;
     }
 
     private boolean isUser(List<String> roles) {
-        if (roles.contains(SystemConstant.USER_ROLE)) {
+        if (roles.contains(SystemConstant.CUSTOMER_ROLE)) {
             return true;
         }
         return false;

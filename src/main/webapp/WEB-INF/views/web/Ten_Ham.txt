@@ -1,0 +1,34 @@
+*USER:
+insert(UserDTO userDTO);
+addCustomerAccount(UserDTO userDTO) ;
+updateProfileOfUser(String id, UserDTO userDTO);
+delete(long[] ids);
+resetPassword(long id);
+updatePassword(long id, PasswordDTO userDTO);
+findUserById(long id);
+findOneByUserNameAndStatus(String name, int status);
+
+*ROLE
+findAll();
+getRoles();
+
+*Transaction
+addOrUpdateTransaction(TransactionDTO transactionDTO);
+addTransactions(Long customerId,String code);
+
+*Customer
+findCustomerEntityById(Long Id);	
+getAllCustomer();
+addOrUpdateCustomer(CustomerDTO customerDTO);
+deleteCustomer(List<Long> Id);
+listStaffs (Long customerId);
+assignmentCustomer(AssignmentCustomerDTO assignmentCustomerDTO);
+
+*Building
+listStaffs (Long buildingId);
+getAllBuilding();
+addOrUpdateBuilding (BuildingDTO buildingDTO) ;
+getBuilding(BuildingDTO buildingDTO);
+findBuildingEntityById(Long Id);
+deleteBuilding (List<Long> Id);
+assignmentBuilding(AssignmentBuildingDTO assignmentBuildingDTO);

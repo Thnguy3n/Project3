@@ -84,7 +84,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label"></label>
                                                     <div class="col-sm-8">
-                                                        <button id="btnSearch" type="button"
+                                                            <button id="btnSearch" type="button"
                                                                 class="btn btn-sm btn-success">
                                                                 <%--spring:message code="label.search"/>--%>
                                                             Tìm kiếm

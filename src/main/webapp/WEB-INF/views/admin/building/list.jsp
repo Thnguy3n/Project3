@@ -12,7 +12,7 @@
 
 <html>
 <head>
-    <title>Danh sách tòa nhà</title>
+    <title>Danh sách Bất động sản</title>
 </head>
 <body>
 <div class="main-content" >
@@ -30,15 +30,12 @@
                     </li>
                     <li class="active">Dashboard</li>
                 </ul><!-- /.breadcrumb -->
-
-
             </div>
 
             <div class="page-content">
-
                 <div class="page-header">
                     <h1>
-                        Danh sách tòa nhà
+                        Danh sách bất động sản
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
                             overview &amp; stats
@@ -48,18 +45,14 @@
                 <div class="widget-box ui-sortable-handle collapsed">
                     <div class="widget-header">
                         <h5 class="widget-title">Tìm kiếm</h5>
-
                         <div class="widget-toolbar">
-
                             <a href="#" data-action="collapse">
                                 <i class="ace-icon fa fa-chevron-down"></i>
                             </a>
-
-
                         </div>
                     </div>
 
-                    <div class="widget-body" style="display: none;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" >
+                    <div class="widget-body" style="display: block;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" >
                         <div class="widget-main" >
                             <form:form id="listForm" modelAttribute="modelSearch" action="${buildingListURL}" method="GET">
                                 <!-- danh sach tim kiem -->
@@ -142,11 +135,13 @@
                                                 <form:input class="form-control" path="managerPhone"/>
                                             </div>
                                             <div class="col-sm-2">
-                                                <label class="name">Nhân viên</label>
-                                                <form:select path="staffId" class="form-control">
-                                                    <form:option value="">---Chọn nhân viên---</form:option>
-                                                    <form:options items="${listStaffs}"/>
-                                                </form:select>
+                                                <security:authorize access="hasRole('MANAGER')">
+                                                    <label class="name">Nhân viên</label>
+                                                    <form:select path="staffId" class="form-control">
+                                                        <form:option value="">---Chọn nhân viên---</form:option>
+                                                        <form:options items="${listStaffs}"/>
+                                                    </form:select>
+                                                </security:authorize>
                                             </div>
                                         </div>
                                     </div>
@@ -192,67 +187,53 @@
                 <!-- Danh sách kết quả -->
                 <div class="row" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-top: 80px;">
                     <div class="col-xs-12">
-                        <table id="TableList" class="table table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th class="center">
-                                    <label class="pos-rel">
-                                        <input type="checkbox" name="checkList" class="ace">
-                                        <span class="lbl"></span>
-                                    </label>
-                                </th>
-                                <th>Tên tòa nhà</th>
-                                <th>Địa chỉ</th>
-                                <th>Số tầng hầm</th>
-                                <th>Tên quản lý</th>
-                                <th>Số điện thoại quản lý</th>
-                                <th>D.Tích sàn</th>
-                                <th>D.Tích trống</th>
-                                <th>D.Tích thuê</th>
-                                <th>Phí mô giới</th>
-                                <th>Thao tác</th>
+                    <display:table name="buildings" cellspacing="0" cellpadding="0"
+                        requestURI="${buildingListURL}" partialList="true" sort="external"
+                        size="${model.totalItems}" defaultsort="2" defaultorder="ascending"
+                        id="tableList" pagesize="${model.maxPageItems}"
+                        export="false"
+                        class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
+                        style="margin: 3em 0 1.5em;">
+                        <display:column title="<fieldset class='form-group'>
+												        <input type='checkbox' id='checkAll' class='check-box-element'>
+												        </fieldset>" class="center select-cell"
+                                        headerClass="center select-cell">
+                        <fieldset>
+                            <input type="checkbox" name="checkList" value="${tableList.id}"
+                                   id="checkbox_${tableList.id}" class="check-box-element"/>
+                        </fieldset>
+                        </display:column>
+                        <display:column headerClass="text-left" property="name" title="Tên tòa nhà"/>
+                        <display:column headerClass="text-left" property="address" title="Tên tòa nhà"/>
+                        <display:column headerClass="text-left" property="numberOfBasement" title="Số tầng hầm"/>
+                        <display:column headerClass="text-left" property="managerName" title="Tên quản lí"/>
+                        <display:column headerClass="text-left" property="managerPhone" title="Số điện thoại"/>
+                        <display:column headerClass="text-left" property="floorArea" title="Diện tích sàn"/>
+                        <display:column headerClass="text-left" property="emptyArea" title="Diện tích trống"/>
+                        <display:column headerClass="text-left" property="rentArea" title="Diện tích thuê"/>
+                        <display:column headerClass="text-left" property="brokerageFee" title="Phí môi giới"/>
+                        <display:column title="Thao tác">
+                            <security:authorize access="hasRole('MANAGER')">
+                                <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(${tableList.id})">
+                                    <i class="ace-icon glyphicon glyphicon-align-justify"></i>
+                                </button>
+                            </security:authorize>
+                            <a href="/admin/building-edit-${tableList.id}" >
+                                <button class="btn btn-xs btn-info" >
+                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                </button>
+                            </a>
+                            <security:authorize access="hasRole('MANAGER')">
+                                <button class="btn btn-xs btn-danger" title="Xóa tòa nhà" onclick="deleteBuilding(${tableList.id})">
+                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                </button>
+                            </security:authorize>
+                        </display:column>
+                    </display:table>
 
-                            </tr>
-                            </thead>
 
-                            <tbody>
-                            <c:forEach var="item" items="${buildingList}">
-                               <tr>
-                                <td class="center">
-                                    <label class="pos-rel">
-                                        <input type="checkbox" name="checkList" class="ace" value="${item.id}">
-                                        <span class="lbl"></span>
-                                    </label>
-                                </td>
-                                <td>${item.name}</td>
-                                <td>${item.address}</td>
-                                <td>${item.numberOfBasement}</td>
-                                <td>${item.managerName}</td>
-                                <td>${item.managerPhone}</td>
-                                <td>${item.floorArea}</td>
-                                <td>${item.id}</td>
-                                <td>${item.rentArea}</td>
-                                <td>${item.id}</td>
-                                <td>
-                                    <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-success" title="Giao tòa nhà" onclick="assignmentBuilding(${item.id})">
-                                            <i class="ace-icon glyphicon glyphicon-align-justify"></i>
-                                        </button>
-                                        <a href="/admin/building-edit-${item.id}" >
-                                            <button class="btn btn-xs btn-info" >
-                                                <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                            </button>
-                                        </a>
 
-                                        <button class="btn btn-xs btn-danger" title="Xóa tòa nhà" onclick="deleteBuilding(${item.id})">
-                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            </c:forEach>
 
-                        </table>
                     </div><!-- /.span -->
                 </div>
 
@@ -277,7 +258,7 @@
                 <h4 class="modal-title">Modal Header</h4>
             </div>
             <div class="modal-body">
-                <table id="staff-list" class="table table-striped table-bordered table-hover">
+                <table id="staffList" class="table table-striped table-bordered table-hover">
                     <thead>
                     <tr>
                         <th class="center">Chọn</th>
@@ -286,18 +267,7 @@
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td class="center">
-                            <input type="checkbox" id="chekcbox_1" value="1">
-                        </td>
-                        <td class="center">Nguyễn Văn A</td>
-                    </tr>
-                    <tr>
-                        <td class="center">
-                            <input type="checkbox" id="chekcbox_2" value="2">
-                        </td>
-                        <td class="center">Trần Văn C</td>
-                    </tr>
+                    </tbody>
                 </table>
                 <input type="hidden" name="Building" id="buildingId" value="">
             </div>
@@ -309,39 +279,66 @@
     </div>
 </div>
 
-<script src="assets/js/jquery.2.1.1.min.js"></script>
+
     <script>
     function assignmentBuilding(buildingId){
         $('#assignmentBuildingModal').modal();
-        $('buildingId').val();
+        loadStaffs(buildingId);
+        $('#buildingId').val(buildingId);
     }
 
-    function loadStaff(buildingId){
+    function loadStaffs(buildingId){
         $.ajax({
             type: "GET",
-            url: "${buildingAPI}/"+buildingId/'staffs',
-            data: JSON.stringify(data),
+            url: "${buildingAPI}/"+ buildingId+'/staffs',
             contentType: "application/json",
             dataType: "JSON",
-            success: function (respond) {
-                console.log("success")
+            success: function (response) {
+                var row='';
+                $.each(response.data, function (index,item){
+                    row += '<tr>';
+                    row += '<td class ="text-center" ><input type="checkbox" value='+ item.staffId + ' id="checkbox_'+item.staffId+ '" class = "check-box-element"' + item.checked+'></td>';
+                    row += '<td class ="text-center">'+item.fullName+'</td>';
+                    row += '</tr>';
+                });
+                $('#staffList tbody').html(row);
+                console.info("success");
+
             },
-            error : function (respond) {
+            error : function (response) {
                 console.log("fail");
-                console.log(respond);
+                window.location.href = "<c:url value="/admin/building-list?message=error"/>";
             }
         });
     }
 
+    function assignment(data){
+        $.ajax({
+            type: "POST",
+            url: "${buildingAPI}/" + 'assignment',
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "JSON",
+            success: function (response) {
+                console.info("success");
+            },
+            error : function (respond) {
+                console.info("Giao không thành công!")
+                window.location.href = "<c:url value="/admin/building-list?message=error"/>";
+            }
+        });
+    }
 
     $('#btnassignmentBuilding').click(function(e){
-        e.preventDefault();
         var data={};
         data['buildingId']=$('#buildingId').val();
-        var staffs=$('#staff-list').find('tbody input[type = checkbox]:checked').map(function(){
+        var staffs=$('#staffList').find('tbody input[type = checkbox]:checked').map(function(){
             return $(this).val();
         }).get();
         data['staffs']=staffs;
+        if(data['staffs']!=''){
+            assignment(data);
+        }
         console.log("ok");
     });
 
@@ -372,11 +369,12 @@
             data: JSON.stringify(data),
             contentType: "application/json",
             dataType: "JSON",
-            success: function (result) {
-                $("#h11").html("SUCCESS");
+            success: function (respond) {
+                console.log("Success");
             },
             error : function (respond) {
                 console.log("fail");
+                window.location.href = "<c:url value="/admin/building-list?message=success"/> ";
             }
         });
     }

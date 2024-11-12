@@ -2,6 +2,7 @@ package com.javaweb.api.admin;
 
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.exception.MyException;
+import com.javaweb.model.dto.CustomerDTO;
 import com.javaweb.model.dto.PasswordDTO;
 import com.javaweb.model.dto.UserDTO;
 import com.javaweb.service.IUserService;
@@ -15,6 +16,11 @@ public class UserAPI {
 
     @Autowired
     private IUserService userService;
+
+    @PostMapping("/Register")
+    public UserDTO register(@RequestBody UserDTO userDTO) {
+        return userService.addCustomerAccount(userDTO);
+    }
 
     @PostMapping
     public ResponseEntity<UserDTO> createUsers(@RequestBody UserDTO newUser) {

@@ -56,6 +56,16 @@
                                 <form:input path="fullName" id="fullName" cssClass="form-control"/>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right">
+                                <%--<spring:message code="label.fullname"/>--%>
+                                    Email
+                            </label>
+                            <div class="col-sm-9">
+                                <form:input path="email" id="email" cssClass="form-control"/>
+                            </div>
+                        </div>
+
                         <!--Btn-->
                         <div class="col-sm-12">
                                 <label class="col-sm-3 control-label no-padding-right message-info"></label>
